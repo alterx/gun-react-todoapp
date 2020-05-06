@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ClipboardJS from 'clipboard';
 import { useGunState, useGunCollectionState } from '../utils/hooks.js';
 import { TodoList } from './TodoList.js';
 import { DetailListFooter } from './DetailListFooter.js';
@@ -33,7 +34,7 @@ export const ListDetail = ({
 
   useEffect(() => {
     if (!clipboard) {
-      setClipboard(new window.ClipboardJS('.btn'));
+      setClipboard(new ClipboardJS('.btn'));
     }
     return () => {
       if (clipboard) {

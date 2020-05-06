@@ -70,14 +70,13 @@ const useSafeReducer = (reducer, initialState) => {
 };
 
 export const useGun = (Gun, peerList) => {
-  const [sea] = useState(Gun.SEA);
   const [gun] = useState(
     Gun({
       peers: peerList,
     }),
   );
 
-  return [gun, sea];
+  return [gun];
 };
 
 export const useGunNamespace = (gun) => {

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Gun from 'gun';
+import SEA from 'gun/sea';
 import { MainView } from './views/MainView.js';
 import { SplashView } from './views/SplashView.js';
 import { DetailView } from './views/DetailView.js';
@@ -10,12 +12,10 @@ const App = () => {
   const [isReadyToAuth, setReadyToAuth] = useState(
     () => !!JSON.parse(localStorage.getItem('todoKeys')),
   );
-  const spawnNewGun = instantiateNewGun(window.Gun, [
-    'http://localhost:8765/gun',
-  ]);
-  const [gun, sea] = useGun(window.Gun, ['http://localhost:8765/gun']);
+  const spawnNewGun = instantiateNewGun(Gun, ['http://localhost:8765/gun']);
+  const [gun] = useGun(Gun, ['http://localhost:8765/gun']);
   const [appKeys, setAppKeys] = useGunKeys(
-    sea,
+    SEA,
     () => JSON.parse(localStorage.getItem('todoKeys')) || null,
   );
   const [user, isLoggedIn] = useGunKeyAuth(gun, appKeys, isReadyToAuth);
@@ -58,7 +58,7 @@ const App = () => {
     <section>
       {isLoggedIn ? (
         <MainApp
-          SEA={sea}
+          SEA={SEA}
           user={user}
           appKeys={appKeys}
           spawnNewGun={spawnNewGun}
