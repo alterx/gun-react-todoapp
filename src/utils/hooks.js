@@ -123,7 +123,7 @@ export const useGunKeys = (sea, retrieveFn = () => null) => {
 
 export const useGunState = (
   ref,
-  { appKeys, SEA, route, interval = 100, encrypted = true },
+  { appKeys, SEA, interval = 100, encrypted = true },
 ) => {
   const [gunAppGraph] = useState(ref);
   const [fields, dispatch] = useSafeReducer(reducer, {});
@@ -156,9 +156,6 @@ export const useGunState = (
     }
 
     return () => {
-      console.log(
-        `${route}: cleaning up ${handler.current} ${debouncedHandlers}`,
-      );
       if (handler.current) {
         //cleanup gun .on listener
         handler.current.off();
@@ -192,7 +189,7 @@ export const useGunState = (
 
 export function useGunCollectionState(
   ref,
-  { appKeys, SEA, route, interval = 100, encrypted = true },
+  { appKeys, SEA, interval = 100, encrypted = true },
 ) {
   const [gunAppGraph] = useState(ref);
   const [collection, dispatch] = useSafeReducer(reducer, {});
@@ -224,9 +221,6 @@ export function useGunCollectionState(
     }
 
     return () => {
-      console.log(
-        `${route}: cleaning up ${handler.current} ${debouncedHandlers}`,
-      );
       if (handler.current) {
         //cleanup gun .on listener
         handler.current.off();

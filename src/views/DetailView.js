@@ -17,7 +17,7 @@ export const DetailView = (props) => {
   const sharedResourceRootNodeName = 'todolist';
   const [todolists, { addToSet, updateInSet }] = useGunCollectionState(
     user.get(appName).get('todolists'),
-    { appKeys, SEA, route: 'detail' },
+    { appKeys, SEA },
   );
 
   // Shared Resource
@@ -70,7 +70,6 @@ export const DetailView = (props) => {
 
   useEffect(() => {
     if (!listReady) {
-      console.log('use effect called ' + JSON.stringify(sharedTodos));
       if (listID) {
         let sharedList;
         const fullId = sharedResourceRootNodeName + '/' + listID;

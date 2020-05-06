@@ -10,7 +10,7 @@ export const MainView = ({ appKeys, user, SEA }) => {
   let history = useHistory();
   const [todolists, { updateInSet }] = useGunCollectionState(
     user.get(appName).get('todolists'),
-    { appKeys, SEA, route: 'main' },
+    { appKeys, SEA },
   );
   const [nowShowing, setNowShowing] = useState('active');
   const todoKeyArray = Object.keys(todolists);

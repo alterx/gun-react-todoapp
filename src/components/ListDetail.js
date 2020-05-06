@@ -21,7 +21,7 @@ export const ListDetail = ({
   const [clipboard, setClipboard] = useState(null);
   const [profile, { put }] = useGunState(
     user.get(sharedResourceRootNodeName).get('profile'),
-    { appKeys, SEA, route: 'shared' },
+    { appKeys, SEA },
   );
   const [
     todos,
