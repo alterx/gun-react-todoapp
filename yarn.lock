@@ -4313,7 +4313,7 @@ gud@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/gud/-/gud-1.0.0.tgz#a489581b17e6a70beca9abe3ae57de7a499852c0"
 
-gun@^0.2020.430:
+gun@0.2020.430:
   version "0.2020.430"
   resolved "https://registry.yarnpkg.com/gun/-/gun-0.2020.430.tgz#ffc13b1109be253ea91270eb9f10d75c66a25e3e"
   dependencies:

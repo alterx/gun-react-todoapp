@@ -1,8 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Gun TODO list
+
+This is a TODO list example inspired by https://github.com/thrownness/decentralized-todo-app and built with React + hooks.
+This project uses the official TODO MVC CSS [https://github.com/tastejs/todomvc-app-css]
+
+## License
+
+Licensed under [MIT](https://github.com/alterx/gun-react-todoapp/blob/master/LICENSE.md).
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn server`
+
+Runs a local Gun peer ([localhost:5151](http://localhost:5151)).
 
 ### `yarn start`
 
