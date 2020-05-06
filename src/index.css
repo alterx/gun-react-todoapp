@@ -1,13 +1,124 @@
-body {
+.todoapp h2 {
+  position: relative;
+  width: 100%;
+  font-size: 32px;
+  font-weight: 200;
+  text-align: center;
+  color: #b83f45;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 20px 0;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button.back {
+  padding: 20px;
+}
+.todoapp h2 {
+  position: relative;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 200;
+  text-align: center;
+  color: #b83f45;
+  margin: 0;
+  padding: 20px 0;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+}
+
+button.back {
+  padding: 20px;
+  cursor: pointer;
+}
+
+button.new-list {
+  cursor: pointer;
+  position: relative;
+  width: calc(100% - 60px);
+  font-size: 32px;
+  font-weight: 200;
+  text-align: center;
+  color: #b83f45;
+  margin: 0;
+  padding: 20px 0;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+  border-bottom: 1px solid;
+  margin: 0 30px;
+}
+
+small {
+  color: #a6a6a6;
+  font-size: 12px;
+}
+
+.todo-list-detail {
+  border-top: 1px solid transparent;
+  margin: 0;
+}
+
+.todo-list-detail h1 {
+  top: 0;
+  position: relative;
+}
+
+.todo-list li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.todo-list li i {
+  cursor: pointer;
+}
+
+.todo-list li .archive {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  font-size: 30px;
+  color: #cc9a9a;
+  margin-bottom: 11px;
+  transition: color 0.2s ease-out;
+}
+
+.todo-list li:hover .archive {
+  display: block;
+}
+
+.lists li label {
+  text-align: center;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.share-box {
+  border-top: 1px solid #b83f456b;
+  margin-top: 0;
+  padding: 20px 20px 20px 15px;
+}
+
+.new-todo.link {
+  padding: 20px;
+  font-size: 18px;
+  color: #000;
+}
+
+.copy-btn {
+  margin: 20px auto 0px auto;
+  display: block;
+}
+
+a i {
+  margin-left: 15px;
+  margin-top: 15px;
+  color: #b83f45;
 }
