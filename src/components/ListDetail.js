@@ -95,7 +95,7 @@ export const ListDetail = ({
       const { id, keys, name } = currentList;
       const sharedKeys = await SEA.encrypt({ keys, name }, passphrase);
       const shareString = JSON.stringify({ sharedList: sharedKeys });
-      const shareUrl = `${baseURL}/${id.replace(
+      const shareUrl = `${baseURL}/detail/${id.replace(
         sharedResourceRootNodeName + '/',
         '',
       )}#share=${encodeURI(shareString)}`;
