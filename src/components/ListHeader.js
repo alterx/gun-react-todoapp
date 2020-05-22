@@ -8,7 +8,7 @@ export const ListHeader = ({
   newTodo,
   name,
 }) => {
-  return readOnly ? (
+  return !readOnly ? (
     <Fragment>
       <h1
         id="appName"
