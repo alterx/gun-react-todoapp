@@ -32,17 +32,25 @@ export const createSharedResource = async (appName, spawnNewGun, SEA) => {
   });
 };
 
-export const openSharedResource = async (nodeID, spawnNewGun, keys) => {
+export const openSharedResource = async (nodeID, spawnNewGun, keys, pub) => {
   return new Promise((resolve) => {
     const newGun = spawnNewGun();
-    newGun.on('auth', () => {
-      // TODO: workaround while https://github.com/amark/gun/issues/937 is fixed
-      // should not need a function
+    let namespace;
+
+    if (keys) {
+      newGun.on('auth', () => {
+        // TODO: workaround while https://github.com/amark/gun/issues/937 is fixed
+        // should not need a function
+        const node = () => namespace.get(nodeID);
+        resolve(node);
+      });
+      namespace = newGun.user();
+      namespace.auth(keys);
+    } else {
+      namespace = newGun.get(pub);
       const node = () => namespace.get(nodeID);
       resolve(node);
-    });
-    const namespace = newGun.user();
-    namespace.auth(keys);
+    }
   });
 };
 

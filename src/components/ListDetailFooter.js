@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const DetailListFooter = ({
+export const ListDetailFooter = ({
   activeTodoCount = 0,
   nowShowing = 'all',
   setNowShowing,

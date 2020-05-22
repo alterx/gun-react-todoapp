@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import ClipboardJS from 'clipboard';
 import { useGunState, useGunCollectionState } from '../utils/hooks.js';
 import { TodoList } from './TodoList.js';
-import { DetailListFooter } from './DetailListFooter.js';
+import { ListDetailFooter } from './ListDetailFooter.js';
+import { ListHeader } from './ListHeader.js';
+import { ShareModal } from './ShareModal.js';
 
 export const ListDetail = ({
-  appKeys,
   user,
   SEA,
   updateListName,
@@ -19,15 +20,17 @@ export const ListDetail = ({
   const [newTodo, setNewTodo] = useState('');
   const [showLink, setShowLink] = useState(false);
   const [clipboard, setClipboard] = useState(null);
+  const { encryptionKey, readOnly } = currentList;
+  const [showShareDialog, setShowShareDialog] = React.useState(false);
   const [profile, { put }] = useGunState(
     user.get(sharedResourceRootNodeName).get('profile'),
-    { appKeys, SEA },
+    { appKeys: encryptionKey, SEA },
   );
   const [
     todos,
     { addToSet, updateInSet, removeFromSet },
   ] = useGunCollectionState(user.get(sharedResourceRootNodeName).get('todos'), {
-    appKeys,
+    appKeys: encryptionKey,
     SEA,
   });
   const { name } = profile;
@@ -83,17 +86,18 @@ export const ListDetail = ({
     updateListName(name);
   };
 
-  const shareUrl = async () => {
+  const shareUrl = async (passphrase, readOnly = true) => {
     if (!showLink) {
-      const passphrase = prompt(
-        'Please enter a passphrase (and memorize it!).' +
-          'Anyone with this link will also need to know this passphrase to open it.' +
-          'and will have full access to this list.' +
-          'The url will be copied to your clipboard once you click "OK".',
-      );
+      let { id, keys, name, encryptionKey, pub } = currentList;
+      let unencryptedSharedKeys;
 
-      const { id, keys, name } = currentList;
-      const sharedKeys = await SEA.encrypt({ keys, name }, passphrase);
+      if (readOnly) {
+        unencryptedSharedKeys = { name, encryptionKey, pub };
+      } else {
+        unencryptedSharedKeys = { keys, name, encryptionKey };
+      }
+
+      const sharedKeys = await SEA.encrypt(unencryptedSharedKeys, passphrase);
       const shareString = JSON.stringify({ sharedList: sharedKeys });
       const shareUrl = `${baseURL}/detail/${id.replace(
         sharedResourceRootNodeName + '/',
@@ -121,30 +125,14 @@ export const ListDetail = ({
       <Link to={'/'}>
         <i className="gg-mail-reply"></i>
       </Link>
-      <h1
-        id="appName"
-        contentEditable={true}
-        suppressContentEditableWarning={true}
-        onBlur={(e) => {
-          const name = e.target.innerText;
-          updateName(name);
-          e.target.innerText = '';
-        }}
-      >
-        {name || '[Add new name]'}
-      </h1>
-      <input
-        className="new-todo"
-        value={newTodo}
-        onChange={(e) => {
-          setNewTodo(e.target.value);
-        }}
-        onBlur={(e) => {
-          addTodo(newTodo);
-          e.target.value = '';
-        }}
-        type="text"
-        placeholder="What needs to be done?"
+
+      <ListHeader
+        readOnly={readOnly}
+        addTodo={addTodo}
+        setNewTodo={setNewTodo}
+        updateName={updateName}
+        newTodo={newTodo}
+        name={name}
       />
       <section className="main">
         <TodoList
@@ -158,11 +146,21 @@ export const ListDetail = ({
       <section className="share-box">
         <button
           onClick={() => {
-            shareUrl();
+            if (!showLink) {
+              setShowShareDialog(true);
+            } else {
+              setShowLink(!showLink);
+            }
           }}
         >
-          {!showLink ? 'Show link' : 'Hide link'}
+          {!showLink ? 'Share' : 'Hide link'}
         </button>
+
+        <ShareModal
+          showDialog={showShareDialog}
+          setShowDialog={setShowShareDialog}
+          onDismiss={shareUrl}
+        />
         {'   '}
         {showLink && (
           <input
@@ -178,10 +176,11 @@ export const ListDetail = ({
           </button>
         )}
       </section>
-      <DetailListFooter
+      <ListDetailFooter
         activeTodoCount={activeTodoListCount}
         nowShowing={nowShowing}
         setNowShowing={setNowShowing}
+        readOnly={readOnly}
       />
     </div>
   );

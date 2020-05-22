@@ -1,5 +1,26 @@
 import React, { useState } from 'react';
 
+const ReadOnlyTodoItem = ({ todo }) => {
+  const { text, lastUpdated, nodeID, status } = todo;
+  let classes = status === 'completed' ? status : '';
+
+  return (
+    <li className={classes} key={nodeID}>
+      <div className="view">
+        <input
+          className="toggle"
+          type="checkbox"
+          checked={status === 'completed'}
+          disabled
+        />
+        <label>
+          {text} <small>[Updated At: {lastUpdated}]</small>
+        </label>
+      </div>
+    </li>
+  );
+};
+
 const TodoItem = ({ todo, removeTodo, changeStatus, updateTodo }) => {
   const { text, lastUpdated, nodeID, status } = todo;
   const [isEditing, setIsEditing] = useState(false);
@@ -41,16 +62,19 @@ export const TodoList = ({
   removeTodo,
   changeStatus,
   updateTodo,
+  readOnly,
 }) => {
+  const Item = readOnly ? ReadOnlyTodoItem : TodoItem;
   return (
     <ul id="todo-list" className="todo-list">
       {todos.map((todo) => (
-        <TodoItem
+        <Item
           key={todo.nodeID}
           todo={todo}
           removeTodo={removeTodo}
           changeStatus={changeStatus}
           updateTodo={updateTodo}
+          readOnly={readOnly}
         />
       ))}
     </ul>

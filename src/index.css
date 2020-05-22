@@ -1,3 +1,7 @@
+.todoapp {
+  z-index: 0;
+}
+
 .todoapp h2 {
   position: relative;
   width: 100%;

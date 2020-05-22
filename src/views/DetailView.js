@@ -21,7 +21,7 @@ export const DetailView = (props) => {
   );
 
   // Shared Resource
-  const [{ node, sharedKeys }, setSharedResource] = useState({});
+  const [{ node }, setSharedResource] = useState({});
   const [listReady, setListReady] = useState(false);
   const [currentList, setCurrentList] = useState(null);
   const todoKeyArray = Object.keys(todolists);
@@ -34,9 +34,9 @@ export const DetailView = (props) => {
 
   const loadList = useCallback(
     async (list) => {
-      const { id, keys } = list;
-      const node = await openSharedResource(id, spawnNewGun, keys);
-      setSharedResource({ node: node(), sharedKeys: keys });
+      const { id, keys, pub } = list;
+      const node = await openSharedResource(id, spawnNewGun, keys, pub);
+      setSharedResource({ node: node() });
       setCurrentList(list);
     },
     [spawnNewGun],
@@ -51,19 +51,41 @@ export const DetailView = (props) => {
     const { shareKeys, keys } = newResource;
     const { nodeID } = shareKeys;
     console.log(`App keys for new list: ${JSON.stringify(keys)}`);
-    const list = { name: '', id: nodeID, keys, status: 'active' };
+    const list = {
+      name: '',
+      id: nodeID,
+      keys,
+      status: 'active',
+      encryptionKey: SEA.random(16).toString(),
+      pub: `~${keys.pub}`,
+    };
     loadList(list);
   }, [SEA, loadList, spawnNewGun]);
 
   const addNewSharedList = useCallback(
     async (listID, encodedKeys, passphrase) => {
-      const decoded = decodeURI(encodedKeys);
-      const { sharedList } = JSON.parse(decoded);
-      const { keys, name } = await SEA.decrypt(sharedList, passphrase);
-      window.location.hash = '';
-      const list = { name, id: listID, keys };
-      addToSet(list);
-      loadList(list);
+      try {
+        const decoded = decodeURI(encodedKeys);
+        const { sharedList } = JSON.parse(decoded);
+        const listData = await SEA.decrypt(sharedList, passphrase);
+        const { keys, name, encryptionKey, pub } = listData;
+        window.location.hash = '';
+        const list = {
+          name,
+          id: listID,
+          keys,
+          encryptionKey,
+          pub,
+          status: keys ? 'active' : 'readonly',
+          readOnly: !keys,
+        };
+        addToSet(list);
+        loadList(list);
+      } catch (e) {
+        alert(
+          "failed to add new list, it seems like you don't have access or the passphrase is incorrect.",
+        );
+      }
     },
     [SEA, addToSet, loadList],
   );
@@ -125,7 +147,6 @@ export const DetailView = (props) => {
         <ListDetail
           SEA={SEA}
           user={node}
-          appKeys={sharedKeys}
           updateListName={updateListName}
           sharedResourceRootNodeName={sharedResourceRootNodeName}
           currentList={currentList}

@@ -26,6 +26,14 @@ export const Footer = ({
           >
             Archived
           </a>
+        </li>{' '}
+        <li onClick={setNowShowing.bind(this, 'readonly')}>
+          <a
+            href="#/readOnly"
+            className={nowShowing === 'readonly' ? 'selected' : ''}
+          >
+            Read-Only
+          </a>
         </li>
       </ul>
     </footer>

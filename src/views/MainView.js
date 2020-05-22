@@ -56,7 +56,7 @@ export const MainView = ({ appKeys, user, SEA }) => {
                 e.stopPropagation();
                 changeStatus(
                   list,
-                  list.status === 'active' ? 'archived' : 'active',
+                  list.status !== 'archived' ? 'archived' : 'active',
                 );
               }}
             >
