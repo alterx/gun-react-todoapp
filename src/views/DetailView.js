@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useGunCollectionState } from '../utils/hooks.js';
+import { useGunCollectionState } from '@altrx/gundb-react-hooks';
+import { useAuth } from '../context/gunContext';
 import {
   openSharedResource,
   createSharedResource,
 } from '../utils/sharedResource.js';
 import { ListDetail } from '../components/ListDetail.js';
 
-export const DetailView = (props) => {
-  const { appKeys, user, SEA, spawnNewGun } = props;
+export const DetailView = () => {
+  const { appKeys, user, sea, spawnNewGun } = useAuth();
   let { listID: lId } = useParams();
   const listID = lId ? decodeURIComponent(lId) : null;
   let history = useHistory();
@@ -17,7 +18,7 @@ export const DetailView = (props) => {
   const sharedResourceRootNodeName = 'todolist';
   const [todolists, { addToSet, updateInSet }] = useGunCollectionState(
     user.get(appName).get('todolists'),
-    { appKeys, SEA },
+    { appKeys, sea },
   );
 
   // Shared Resource
@@ -46,7 +47,7 @@ export const DetailView = (props) => {
     const newResource = await createSharedResource(
       sharedResourceRootNodeName,
       spawnNewGun,
-      SEA,
+      sea,
     );
     const { shareKeys, keys } = newResource;
     const { nodeID } = shareKeys;
@@ -56,18 +57,18 @@ export const DetailView = (props) => {
       id: nodeID,
       keys,
       status: 'active',
-      encryptionKey: SEA.random(16).toString(),
+      encryptionKey: sea.random(16).toString(),
       pub: `~${keys.pub}`,
     };
     loadList(list);
-  }, [SEA, loadList, spawnNewGun]);
+  }, [sea, loadList, spawnNewGun]);
 
   const addNewSharedList = useCallback(
     async (listID, encodedKeys, passphrase) => {
       try {
         const decoded = decodeURI(encodedKeys);
         const { sharedList } = JSON.parse(decoded);
-        const listData = await SEA.decrypt(sharedList, passphrase);
+        const listData = await sea.decrypt(sharedList, passphrase);
         const { keys, name, encryptionKey, pub } = listData;
         window.location.hash = '';
         const list = {
@@ -87,7 +88,7 @@ export const DetailView = (props) => {
         );
       }
     },
-    [SEA, addToSet, loadList],
+    [sea, addToSet, loadList],
   );
 
   useEffect(() => {
@@ -145,7 +146,7 @@ export const DetailView = (props) => {
     <div className="todoapp" id="app">
       {currentList && (
         <ListDetail
-          SEA={SEA}
+          sea={sea}
           user={node}
           updateListName={updateListName}
           sharedResourceRootNodeName={sharedResourceRootNodeName}

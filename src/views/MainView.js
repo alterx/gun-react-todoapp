@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useGunCollectionState } from '../utils/hooks.js';
+import { useGunCollectionState } from '@altrx/gundb-react-hooks';
+import { useAuth } from '../context/gunContext';
 import { Footer } from '../components/Footer.js';
 
-export const MainView = ({ appKeys, user, SEA }) => {
+export const MainView = () => {
+  const { appKeys, user, sea } = useAuth();
   // Profile information
   const sharedResourceRootNodeName = 'todolist';
   const appName = 'todomvc';
   let history = useHistory();
   const [todolists, { updateInSet }] = useGunCollectionState(
     user.get(appName).get('todolists'),
-    { appKeys, SEA },
+    { appKeys, sea },
   );
   const [nowShowing, setNowShowing] = useState('active');
   const todoKeyArray = Object.keys(todolists);

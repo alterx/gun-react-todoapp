@@ -1,12 +1,11 @@
 import React from 'react';
+import { useAuth } from './context/gunContext';
 
-export const SplashView = ({ initApp }) => {
-  const getApp = async (type, { target } = {}) => {
+export default function LoginView() {
+  const { login } = useAuth();
+  async function getApp(type, value) {
     try {
-      let value = null;
-      let keys = null;
-      value = target.value;
-      target.value = '';
+      let keys;
 
       if (type !== 'new') {
         if (typeof value === 'string') {
@@ -15,22 +14,30 @@ export const SplashView = ({ initApp }) => {
           keys = value;
         }
       }
-      initApp(keys);
+      login(keys);
     } catch (e) {}
-  };
+  }
 
   return (
     <div className="todoapp" id="splash">
       <h1 id="appName">TODOs App</h1>
-      <button className="new-list" onClick={getApp.bind(this, 'new')}>
+      <button
+        className="new-list"
+        onClick={(e) => {
+          getApp('new');
+        }}
+      >
         New user
       </button>
       <h2>Already have one?</h2>
       <input
         className="new-todo"
-        onChange={getApp.bind(this, 'existing')}
+        onChange={(e) => {
+          const { target } = e;
+          getApp('existing', target.value);
+        }}
         placeholder="Paste keys here"
       />
     </div>
   );
-};
+}

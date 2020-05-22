@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-export const createSharedResource = async (appName, spawnNewGun, SEA) => {
+export const createSharedResource = async (appName, spawnNewGun, sea) => {
   return new Promise(async (resolve) => {
     const newGun = spawnNewGun();
-    const keys = await SEA.pair();
+    const keys = await sea.pair();
     const sharedKeyString = JSON.stringify(keys);
-    let keyId = await SEA.work(sharedKeyString, undefined, undefined, {
+    let keyId = await sea.work(sharedKeyString, undefined, undefined, {
       name: 'SHA-256',
     });
     keyId = keyId.slice(0, 12);
