@@ -10,9 +10,9 @@ export const MainView = () => {
   const sharedResourceRootNodeName = 'todolist';
   const appName = 'todomvc';
   let history = useHistory();
-  const [todolists, { updateInSet }] = useGunCollectionState(
+  const { collection: todolists, updateInSet } = useGunCollectionState(
     user.get(appName).get('todolists'),
-    { appKeys, sea },
+    { appKeys, sea }
   );
   const [nowShowing, setNowShowing] = useState('active');
   const todoKeyArray = Object.keys(todolists);
@@ -46,7 +46,7 @@ export const MainView = () => {
             className="view"
             onClick={() => {
               const path = `/detail/${encodeURIComponent(
-                list.id.replace(sharedResourceRootNodeName + '/', ''),
+                list.id.replace(sharedResourceRootNodeName + '/', '')
               )}`;
               history.push(path);
             }}
@@ -58,7 +58,7 @@ export const MainView = () => {
                 e.stopPropagation();
                 changeStatus(
                   list,
-                  list.status !== 'archived' ? 'archived' : 'active',
+                  list.status !== 'archived' ? 'archived' : 'active'
                 );
               }}
             >

@@ -16,10 +16,14 @@ export const DetailView = () => {
   // Profile information
   const appName = 'todomvc';
   const sharedResourceRootNodeName = 'todolist';
-  const [todolists, { addToSet, updateInSet }] = useGunCollectionState(
-    user.get(appName).get('todolists'),
-    { appKeys, sea },
-  );
+  const {
+    collection: todolists,
+    addToSet,
+    updateInSet,
+  } = useGunCollectionState(user.get(appName).get('todolists'), {
+    appKeys,
+    sea,
+  });
 
   // Shared Resource
   const [{ node }, setSharedResource] = useState({});
@@ -40,14 +44,14 @@ export const DetailView = () => {
       setSharedResource({ node: node() });
       setCurrentList(list);
     },
-    [spawnNewGun],
+    [spawnNewGun]
   );
 
   const createNewList = useCallback(async () => {
     const newResource = await createSharedResource(
       sharedResourceRootNodeName,
       spawnNewGun,
-      sea,
+      sea
     );
     const { shareKeys, keys } = newResource;
     const { nodeID } = shareKeys;
@@ -84,11 +88,11 @@ export const DetailView = () => {
         loadList(list);
       } catch (e) {
         alert(
-          "failed to add new list, it seems like you don't have access or the passphrase is incorrect.",
+          "failed to add new list, it seems like you don't have access or the passphrase is incorrect."
         );
       }
     },
-    [sea, addToSet, loadList],
+    [sea, addToSet, loadList]
   );
 
   useEffect(() => {
@@ -101,7 +105,7 @@ export const DetailView = () => {
         if (hash.indexOf('share=') !== -1) {
           sharedList = hash.split('#share=')[1];
           passphrase = prompt(
-            'Please enter the passphrase in order to add this list to your profile.',
+            'Please enter the passphrase in order to add this list to your profile.'
           );
         }
         if (sharedList && !sharedTodos[fullId]) {
@@ -136,7 +140,7 @@ export const DetailView = () => {
     } else {
       addToSet({ ...currentList, name });
       const path = `/detail/${encodeURIComponent(
-        currentList.id.replace(sharedResourceRootNodeName + '/', ''),
+        currentList.id.replace(sharedResourceRootNodeName + '/', '')
       )}`;
       history.push(path);
     }

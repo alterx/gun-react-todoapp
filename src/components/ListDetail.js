@@ -22,14 +22,16 @@ export const ListDetail = ({
   const [clipboard, setClipboard] = useState(null);
   const { encryptionKey, readOnly } = currentList;
   const [showShareDialog, setShowShareDialog] = React.useState(false);
-  const [profile, { put }] = useGunState(
+  const { fields: profile, put } = useGunState(
     user.get(sharedResourceRootNodeName).get('profile'),
-    { appKeys: encryptionKey, sea },
+    { appKeys: encryptionKey, sea }
   );
-  const [
-    todos,
-    { addToSet, updateInSet, removeFromSet },
-  ] = useGunCollectionState(user.get(sharedResourceRootNodeName).get('todos'), {
+  const {
+    collection: todos,
+    addToSet,
+    updateInSet,
+    removeFromSet,
+  } = useGunCollectionState(user.get(sharedResourceRootNodeName).get('todos'), {
     appKeys: encryptionKey,
     sea,
   });
@@ -101,7 +103,7 @@ export const ListDetail = ({
       const shareString = JSON.stringify({ sharedList: sharedKeys });
       const shareUrl = `${baseURL}/detail/${id.replace(
         sharedResourceRootNodeName + '/',
-        '',
+        ''
       )}#share=${encodeURI(shareString)}`;
 
       console.log(`Share URL: ${shareUrl} | Passhphrase: ${passphrase}`);
