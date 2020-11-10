@@ -3,6 +3,8 @@
 This is a TODO list example inspired by https://github.com/thrownness/decentralized-todo-app and built with React + hooks.
 This project uses the official TODO MVC CSS [https://github.com/tastejs/todomvc-app-css]
 
+LIVE DEMO: https://gun-react-todoapp.vercel.app/
+
 ## License
 
 Licensed under [MIT](https://github.com/alterx/gun-react-todoapp/blob/master/LICENSE.md).
