@@ -5,7 +5,7 @@ import { useAuth } from '../context/gunContext';
 import {
   openSharedResource,
   createSharedResource,
-} from '../utils/sharedResource.js';
+} from '../utils/shared-resource.js';
 import { ListDetail } from '../components/ListDetail.js';
 
 export const DetailView = () => {

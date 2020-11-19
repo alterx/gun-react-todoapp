@@ -1,6 +1,8 @@
 {
   "name": "my-gun-react-app",
   "version": "0.1.0",
+  "homepage": "https://gun-react-todoapp.vercel.app/",
+  "repository": "https://github.com/alterx/gun-react-todoapp",
   "private": true,
   "dependencies": {
     "@altrx/gundb-react-hooks": "^0.5.0",

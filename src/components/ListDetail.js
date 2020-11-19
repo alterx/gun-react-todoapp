@@ -14,7 +14,10 @@ export const ListDetail = ({
   sharedResourceRootNodeName,
   currentList,
 }) => {
-  const baseURL = 'http://localhost:3000';
+  const baseURL =
+    process.env.NODE_ENV === 'production'
+      ? 'https://gun-react-todoapp.vercel.app'
+      : 'http://localhost:3000';
   const [nowShowing, setNowShowing] = useState('all');
   const [currentShareLink, setCurrentShareLink] = useState('');
   const [newTodo, setNewTodo] = useState('');
