@@ -13,7 +13,7 @@ export const ShareModal = ({ showDialog, setShowDialog, onDismiss }) => {
 
   const onClose = (result) => {
     if (result === 'success') {
-      onDismiss(passphrase, readOnly);
+      onDismiss(passphrase, readOnly === 'readonly');
     }
     setShowDialog(false);
   };
