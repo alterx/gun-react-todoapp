@@ -1,5 +1,5 @@
 dependencies:
-  '@altrx/gundb-react-hooks': 0.5.0_react-dom@17.0.1+react@17.0.1
+  '@altrx/gundb-react-hooks': 0.8.1_react-dom@17.0.1+react@17.0.1
   '@reach/alert-dialog': 0.11.2_react-dom@17.0.1+react@17.0.1
   '@reach/dialog': 0.11.2_react-dom@17.0.1+react@17.0.1
   '@testing-library/jest-dom': 4.2.4
@@ -16,7 +16,7 @@ devDependencies:
   express: 4.17.1
 lockfileVersion: 5.1
 packages:
-  /@altrx/gundb-react-hooks/0.5.0_react-dom@17.0.1+react@17.0.1:
+  /@altrx/gundb-react-hooks/0.8.1_react-dom@17.0.1+react@17.0.1:
     dependencies:
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
@@ -25,7 +25,7 @@ packages:
       react: '>=16.12.0'
       react-dom: '>=16.12.0'
     resolution:
-      integrity: sha512-hkdxzxdyYGjEyiMLv1j1PyeltrOt0uFJkGKgHgvNqT7G1pJTcgLh+spb2aKHgkaD+ntYXdwRsP9MalvXzr1z4A==
+      integrity: sha512-Di35a+5FQpyB0oJYCK/uOPngLYeeBi/TGu6ez8jc7xs9+XxoSaw5+LBiBoosOrXkAl8AFP5kModtfWuF0yxhkQ==
       registry: 'http://registry.npmjs.org/'
   /@babel/code-frame/7.10.4:
     dependencies:
@@ -14389,7 +14389,7 @@ packages:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
       registry: 'http://registry.npmjs.org/'
 specifiers:
-  '@altrx/gundb-react-hooks': ^0.5.0
+  '@altrx/gundb-react-hooks': ^0.8.1
   '@reach/alert-dialog': ^0.11.2
   '@reach/dialog': ^0.11.2
   '@testing-library/jest-dom': ^4.2.4

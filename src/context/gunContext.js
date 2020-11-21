@@ -11,10 +11,10 @@ const GunProvider = (props) => {
   const [isReadyToAuth, setReadyToAuth] = useState(
     () => !!(localStorage.getItem('todoKeys') || '')
   );
-  const spawnNewGun = instantiateNewGun(Gun, [
-    'https://gun-us.herokuapp.com/gun',
-  ]);
-  const [gun] = useGun(Gun, ['https://gun-us.herokuapp.com/gun']);
+  const spawnNewGun = instantiateNewGun(Gun, {
+    peers: ['https://gun-us.herokuapp.com/gun'],
+  });
+  const [gun] = useGun(Gun, { peers: ['https://gun-us.herokuapp.com/gun'] });
   const [appKeys, setAppKeys] = useGunKeys(sea, () =>
     JSON.parse(localStorage.getItem('todoKeys') || null)
   );

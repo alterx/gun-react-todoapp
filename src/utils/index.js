@@ -1,3 +1,3 @@
-export const instantiateNewGun = (Gun, peerlist) => () => {
-  return Gun({ peers: peerlist });
+export const instantiateNewGun = (Gun, opts) => () => {
+  return Gun(opts);
 };
