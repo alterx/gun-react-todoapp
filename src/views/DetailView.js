@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useGunCollectionState } from '@altrx/gundb-react-hooks';
 import { useAuth } from '@altrx/gundb-react-auth';
-import { useSpawnNewGun } from '../context/gunSpawnerContext';
 import {
   openSharedResource,
   createSharedResource,
@@ -10,8 +9,7 @@ import {
 import { ListDetail } from '../components/ListDetail.js';
 
 export const DetailView = () => {
-  const { appKeys, user, sea } = useAuth();
-  const { spawnNewGun } = useSpawnNewGun();
+  const { appKeys, user, sea, newGunInstance } = useAuth();
   let { listID: lId } = useParams();
   const listID = lId ? decodeURIComponent(lId) : null;
   let history = useHistory();
@@ -42,17 +40,17 @@ export const DetailView = () => {
   const loadList = useCallback(
     async (list) => {
       const { id, keys, pub } = list;
-      const node = await openSharedResource(id, spawnNewGun, keys, pub);
+      const node = await openSharedResource(id, newGunInstance, keys, pub);
       setSharedResource({ node: node() });
       setCurrentList(list);
     },
-    [spawnNewGun]
+    [newGunInstance]
   );
 
   const createNewList = useCallback(async () => {
     const newResource = await createSharedResource(
       sharedResourceRootNodeName,
-      spawnNewGun,
+      newGunInstance,
       sea
     );
     const { shareKeys, keys } = newResource;
@@ -67,7 +65,7 @@ export const DetailView = () => {
       pub: `~${keys.pub}`,
     };
     loadList(list);
-  }, [sea, loadList, spawnNewGun]);
+  }, [sea, loadList, newGunInstance]);
 
   const addNewSharedList = useCallback(
     async (listID, encodedKeys, passphrase) => {

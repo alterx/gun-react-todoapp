@@ -1,5 +1,5 @@
 dependencies:
-  '@altrx/gundb-react-auth': 0.1.0_react-dom@17.0.1+react@17.0.1
+  '@altrx/gundb-react-auth': 0.2.0_react-dom@17.0.1+react@17.0.1
   '@altrx/gundb-react-hooks': 0.8.1_react-dom@17.0.1+react@17.0.1
   '@reach/alert-dialog': 0.11.2_react-dom@17.0.1+react@17.0.1
   '@reach/dialog': 0.11.2_react-dom@17.0.1+react@17.0.1
@@ -17,7 +17,7 @@ devDependencies:
   express: 4.17.1
 lockfileVersion: 5.1
 packages:
-  /@altrx/gundb-react-auth/0.1.0_react-dom@17.0.1+react@17.0.1:
+  /@altrx/gundb-react-auth/0.2.0_react-dom@17.0.1+react@17.0.1:
     dependencies:
       '@altrx/gundb-react-hooks': 0.8.1_react-dom@17.0.1+react@17.0.1
       react: 17.0.1
@@ -27,7 +27,7 @@ packages:
       react: '>=16.12.0'
       react-dom: '>=16.12.0'
     resolution:
-      integrity: sha512-vtmGEsmq1yQj3lajS/Twk1IlL1MLW3584JviQW47i6vUha2dUNWtZ4Kgsuz8NxEcRusbxvl2UyBGUX2ac8a8lg==
+      integrity: sha512-azJAzvvxkhQAS3S6jLDi/CeOAud2Q8JyFJqNDZQ6MFt5PoW08Fr2PXDkArPbh1SwOD9u6IEAB0HN2lnIN8fZsA==
   /@altrx/gundb-react-hooks/0.8.1_react-dom@17.0.1+react@17.0.1:
     dependencies:
       react: 17.0.1
@@ -13978,7 +13978,7 @@ packages:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
       registry: 'http://registry.npmjs.org/'
 specifiers:
-  '@altrx/gundb-react-auth': ^0.1.0
+  '@altrx/gundb-react-auth': 0.2.0
   '@altrx/gundb-react-hooks': ^0.8.1
   '@reach/alert-dialog': ^0.11.2
   '@reach/dialog': ^0.11.2
