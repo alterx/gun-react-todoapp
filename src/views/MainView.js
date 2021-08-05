@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGunCollectionState } from '@altrx/gundb-react-hooks';
-import { useAuth } from '../context/gunContext';
+import { useAuth } from '@altrx/gundb-react-auth';
 import { Footer } from '../components/Footer.js';
 
 export const MainView = () => {
@@ -23,8 +23,9 @@ export const MainView = () => {
   };
 
   let todoList = todoKeyArray.map((k) => todolists[k]);
-  let activeListCount = todoList.filter(({ status }) => status === 'active')
-    .length;
+  let activeListCount = todoList.filter(
+    ({ status }) => status === 'active'
+  ).length;
 
   todoList = todoList.filter(({ status }) => status === nowShowing);
 

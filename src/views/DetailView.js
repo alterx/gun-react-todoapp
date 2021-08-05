@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useGunCollectionState } from '@altrx/gundb-react-hooks';
-import { useAuth } from '../context/gunContext';
+import { useAuth } from '@altrx/gundb-react-auth';
+import { useSpawnNewGun } from '../context/gunSpawnerContext';
 import {
   openSharedResource,
   createSharedResource,
@@ -9,7 +10,8 @@ import {
 import { ListDetail } from '../components/ListDetail.js';
 
 export const DetailView = () => {
-  const { appKeys, user, sea, spawnNewGun } = useAuth();
+  const { appKeys, user, sea } = useAuth();
+  const { spawnNewGun } = useSpawnNewGun();
   let { listID: lId } = useParams();
   const listID = lId ? decodeURIComponent(lId) : null;
   let history = useHistory();

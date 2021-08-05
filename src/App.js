@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAuth } from './context/gunContext';
+import { useAuth } from '@altrx/gundb-react-auth';
 const AuthenticatedApp = React.lazy(() =>
-  import(/* webpackPrefetch: true */ './AuthenticatedApp'),
+  import(/* webpackPrefetch: true */ './AuthenticatedApp')
 );
 const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from './context/gunContext';
+import { useAuth } from '@altrx/gundb-react-auth';
 
 export default function LoginView() {
   const { login } = useAuth();

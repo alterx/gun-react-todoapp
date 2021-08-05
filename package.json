@@ -5,6 +5,7 @@
   "repository": "https://github.com/alterx/gun-react-todoapp",
   "private": true,
   "dependencies": {
+    "@altrx/gundb-react-auth": "^0.1.0",
     "@altrx/gundb-react-hooks": "^0.8.1",
     "@reach/alert-dialog": "^0.11.2",
     "@reach/dialog": "^0.11.2",
