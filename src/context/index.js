@@ -2,6 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Gun from 'gun';
 import sea from 'gun/sea';
+import 'gun/lib/radix';
+import 'gun/lib/radisk';
+import 'gun/lib/store';
+import 'gun/lib/rindexed';
 import { GunProvider } from '@altrx/gundb-react-auth';
 
 const asyncFn =
@@ -29,6 +33,11 @@ const AppProviders = ({ children }) => {
         Gun={Gun}
         keyFieldName="todoKeys"
         storage={storage}
+        gunOpts={{
+          localStorage: false,
+          radisk: true,
+          peers,
+        }}
       >
         {children}
       </GunProvider>

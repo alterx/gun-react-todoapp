@@ -8,7 +8,7 @@ import { ListHeader } from './ListHeader.js';
 import { ShareModal } from './ShareModal.js';
 
 export const ListDetail = ({
-  user,
+  node,
   sea,
   updateListName,
   sharedResourceRootNodeName,
@@ -26,7 +26,7 @@ export const ListDetail = ({
   const { encryptionKey, readOnly } = currentList;
   const [showShareDialog, setShowShareDialog] = React.useState(false);
   const { fields: profile, put } = useGunState(
-    user.get(sharedResourceRootNodeName).get('profile'),
+    node.get(sharedResourceRootNodeName).get('profile'),
     { appKeys: encryptionKey, sea }
   );
   const {
@@ -34,7 +34,7 @@ export const ListDetail = ({
     addToSet,
     updateInSet,
     removeFromSet,
-  } = useGunCollectionState(user.get(sharedResourceRootNodeName).get('todos'), {
+  } = useGunCollectionState(node.get(sharedResourceRootNodeName).get('todos'), {
     appKeys: encryptionKey,
     sea,
   });
@@ -104,10 +104,9 @@ export const ListDetail = ({
 
       const sharedKeys = await sea.encrypt(unencryptedSharedKeys, passphrase);
       const shareString = JSON.stringify({ sharedList: sharedKeys });
-      const shareUrl = `${baseURL}/detail/${id.replace(
-        sharedResourceRootNodeName + '/',
-        ''
-      )}#share=${encodeURI(shareString)}`;
+      const shareUrl = `${baseURL}/detail/${id}#share=${encodeURI(
+        shareString
+      )}`;
 
       console.log(`Share URL: ${shareUrl} | Passhphrase: ${passphrase}`);
       setCurrentShareLink(shareUrl);
@@ -118,15 +117,16 @@ export const ListDetail = ({
   };
 
   let todoList = Object.keys(todos).map((k) => todos[k]);
-  let activeTodoListCount = todoList.filter(({ status }) => status === 'active')
-    .length;
+  let activeTodoListCount = todoList.filter(
+    ({ status }) => status === 'active'
+  ).length;
 
   if (nowShowing !== 'all') {
     todoList = todoList.filter(({ status }) => status === nowShowing);
   }
 
   return (
-    <div className="todoapp todo-list-detail" id="app">
+    <div className="todoapp todo-list-detail">
       <Link to={'/'}>
         <i className="gg-mail-reply"></i>
       </Link>

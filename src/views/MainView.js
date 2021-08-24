@@ -7,13 +7,13 @@ import { Footer } from '../components/Footer.js';
 export const MainView = () => {
   const { appKeys, user, sea } = useAuth();
   // Profile information
-  const sharedResourceRootNodeName = 'todolist';
   const appName = 'todomvc';
   let history = useHistory();
   const { collection: todolists, updateInSet } = useGunCollectionState(
     user.get(appName).get('todolists'),
     { appKeys, sea }
   );
+
   const [nowShowing, setNowShowing] = useState('active');
   const todoKeyArray = Object.keys(todolists);
 
@@ -30,7 +30,7 @@ export const MainView = () => {
   todoList = todoList.filter(({ status }) => status === nowShowing);
 
   return (
-    <div className="todoapp" id="app">
+    <div className="todoapp">
       <button
         className="new-list"
         onClick={() => {
@@ -39,6 +39,14 @@ export const MainView = () => {
       >
         Create List
       </button>
+      <button
+        style={{ margin: '0 auto', display: 'block', padding: '10px 0 0 0' }}
+        onClick={() => {
+          history.push('/profile');
+        }}
+      >
+        View profile
+      </button>
       <h2>My Lists</h2>
       <ul className="todo-list lists">
         {todoList.map((list) => (
@@ -46,9 +54,7 @@ export const MainView = () => {
             key={list.nodeID}
             className="view"
             onClick={() => {
-              const path = `/detail/${encodeURIComponent(
-                list.id.replace(sharedResourceRootNodeName + '/', '')
-              )}`;
+              const path = `/detail/${encodeURIComponent(list.id)}`;
               history.push(path);
             }}
           >

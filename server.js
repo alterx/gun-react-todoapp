@@ -30,7 +30,10 @@ app.get('*', function (request, response) {
     config.server = require('http').createServer(Gun.serve(__dirname));
   }
 
-  var gun = Gun({ web: config.server.listen(8765) });
+  var gun = Gun({
+    web: config.server.listen(8765),
+    config,
+  });
   console.log('Relay peer started on port ' + 8765 + ' with /gun');
 
   module.exports = gun;

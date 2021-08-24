@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import { getHash } from './index';
 
-export const createSharedResource = async (appName, newGunInstance, sea) => {
+export const createSharedResource = async (newGunInstance, sea) => {
+  const keys = await sea.pair();
+  const sharedKeyString = JSON.stringify(keys);
+  let keyId = await getHash(sharedKeyString, sea);
+  const nodeID = `${keyId}`;
   return new Promise(async (resolve) => {
-    const newGun = newGunInstance();
-    const keys = await sea.pair();
-    const sharedKeyString = JSON.stringify(keys);
-    let keyId = await getHash(sharedKeyString, sea);
-    const nodeID = `${appName}/${keyId}`;
+    const newGun = newGunInstance({
+      peers: ['https://gun-us.herokuapp.com/gun'],
+      localStorage: false,
+      radisk: true,
+      file: nodeID,
+    });
 
     newGun.on('auth', () => {
       // TODO: workaround while https://github.com/amark/gun/issues/937 is fixed
@@ -32,7 +37,12 @@ export const createSharedResource = async (appName, newGunInstance, sea) => {
 
 export const openSharedResource = async (nodeID, newGunInstance, keys, pub) => {
   return new Promise((resolve) => {
-    const newGun = newGunInstance();
+    const newGun = newGunInstance({
+      peers: ['https://gun-us.herokuapp.com/gun'],
+      localStorage: false,
+      radisk: true,
+      file: nodeID,
+    });
     let namespace;
 
     if (keys) {

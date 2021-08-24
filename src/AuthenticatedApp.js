@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainView } from './views/MainView';
 import { DetailView } from './views/DetailView';
+import { ProfileView } from './views/ProfileView';
 import { Switch, Route } from 'react-router-dom';
 
 function AuthenticatedApp() {
@@ -11,6 +12,9 @@ function AuthenticatedApp() {
       </Route>
       <Route path="/detail/:listID?">
         <DetailView />
+      </Route>
+      <Route path="/profile">
+        <ProfileView />
       </Route>
     </Switch>
   );

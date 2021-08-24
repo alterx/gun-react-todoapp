@@ -15,7 +15,6 @@ export const DetailView = () => {
   let history = useHistory();
   // Profile information
   const appName = 'todomvc';
-  const sharedResourceRootNodeName = 'todolist';
   const {
     collection: todolists,
     addToSet,
@@ -48,14 +47,9 @@ export const DetailView = () => {
   );
 
   const createNewList = useCallback(async () => {
-    const newResource = await createSharedResource(
-      sharedResourceRootNodeName,
-      newGunInstance,
-      sea
-    );
+    const newResource = await createSharedResource(newGunInstance, sea);
     const { shareKeys, keys } = newResource;
     const { nodeID } = shareKeys;
-    console.log(`App keys for new list: ${JSON.stringify(keys)}`);
     const list = {
       name: '',
       id: nodeID,
@@ -99,7 +93,7 @@ export const DetailView = () => {
     if (!listReady) {
       if (listID) {
         let sharedList;
-        const fullId = sharedResourceRootNodeName + '/' + listID;
+        const fullId = listID;
         let passphrase;
         const hash = window.location.hash;
         if (hash.indexOf('share=') !== -1) {
@@ -139,22 +133,20 @@ export const DetailView = () => {
       setCurrentList(todolist);
     } else {
       addToSet({ ...currentList, name });
-      const path = `/detail/${encodeURIComponent(
-        currentList.id.replace(sharedResourceRootNodeName + '/', '')
-      )}`;
+      const path = `/detail/${encodeURIComponent(currentList.id)}`;
       history.push(path);
     }
   };
 
   return (
-    <div className="todoapp" id="app">
+    <div className="todoapp">
       {currentList && (
         <ListDetail
           sea={sea}
-          user={node}
+          node={node}
           updateListName={updateListName}
-          sharedResourceRootNodeName={sharedResourceRootNodeName}
           currentList={currentList}
+          sharedResourceRootNodeName={currentList.id}
         />
       )}
     </div>

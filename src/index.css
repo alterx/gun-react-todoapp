@@ -60,6 +60,19 @@ small {
   font-size: 12px;
 }
 
+button {
+  cursor: pointer;
+}
+
+.profile {
+  padding: 5px 10px;
+  padding-bottom: 20px;
+}
+
+.profile pre {
+  width: '100%';
+}
+
 .todo-list-detail {
   border-top: 1px solid transparent;
   margin: 0;
