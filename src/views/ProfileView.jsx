@@ -14,6 +14,19 @@ export const ProfileView = () => {
     { appKeys, sea }
   );
   const { name = '' } = profile;
+  const [nameValue, setNameValue] = useState(name);
+
+  useEffect(() => {
+    if (nameValue && nameValue !== name) {
+      put({ name: nameValue });
+    }
+  }, [nameValue]);
+
+  useEffect(() => {
+    if (name && nameValue !== name) {
+      setNameValue(name);
+    }
+  }, [name]);
 
   useEffect(() => {
     if (!clipboard) {
@@ -33,9 +46,9 @@ export const ProfileView = () => {
       </Link>
       <h2>My Profile</h2>
       <input
-        value={name}
+        value={nameValue}
         onChange={(e) => {
-          put({ name: e.target.value });
+          setNameValue(e.target.value);
         }}
       />
       <p>
