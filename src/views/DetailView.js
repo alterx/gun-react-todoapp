@@ -28,9 +28,7 @@ export const DetailView = () => {
   const [{ node }, setSharedResource] = useState({});
   const [listReady, setListReady] = useState(false);
   const [currentList, setCurrentList] = useState(null);
-  const todoKeyArray = Object.keys(todolists);
-  const sharedTodos = todoKeyArray.reduce((arr, key) => {
-    let item = todolists[key];
+  const sharedTodos = Array.from(todolists.values()).reduce((arr, item) => {
     const { id } = item;
     arr[id] = item;
     return arr;

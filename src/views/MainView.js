@@ -15,14 +15,13 @@ export const MainView = () => {
   );
 
   const [nowShowing, setNowShowing] = useState('active');
-  const todoKeyArray = Object.keys(todolists);
 
   const changeStatus = async (list, status) => {
     const { nodeID } = list;
     await updateInSet(nodeID, { ...list, status });
   };
 
-  let todoList = todoKeyArray.map((k) => todolists[k]);
+  let todoList = Array.from(todolists.values());
   let activeListCount = todoList.filter(
     ({ status }) => status === 'active'
   ).length;

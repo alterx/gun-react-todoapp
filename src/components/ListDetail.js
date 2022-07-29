@@ -116,7 +116,7 @@ export const ListDetail = ({
     setShowLink(!showLink);
   };
 
-  let todoList = Object.keys(todos).map((k) => todos[k]);
+  let todoList = Array.from(todos.values());
   let activeTodoListCount = todoList.filter(
     ({ status }) => status === 'active'
   ).length;
