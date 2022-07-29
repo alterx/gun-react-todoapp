@@ -132,7 +132,7 @@ export const DetailView = () => {
       setCurrentList(todolist);
     } else {
       addToSet({ ...currentList, name });
-      const path = `/detail/${encodeURIComponent(currentList.id)}`;
+      const path = `/detail?listID=${encodeURIComponent(currentList.id)}`;
       navigate(path);
     }
   };
