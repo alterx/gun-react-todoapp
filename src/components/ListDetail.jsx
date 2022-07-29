@@ -23,7 +23,7 @@ export const ListDetail = ({
   const [newTodo, setNewTodo] = useState('');
   const [showLink, setShowLink] = useState(false);
   const [clipboard, setClipboard] = useState(null);
-  const { encryptionKey, readOnly } = currentList;
+  const { encryptionKey } = currentList;
   const [showShareDialog, setShowShareDialog] = React.useState(false);
   const { fields: profile, put } = useGunState(
     node.get(sharedResourceRootNodeName).get('profile'),
@@ -135,7 +135,7 @@ export const ListDetail = ({
       </Link>
 
       <ListHeader
-        readOnly={readOnly}
+        readOnly={currentList?.readOnly}
         addTodo={addTodo}
         setNewTodo={setNewTodo}
         updateName={updateName}
@@ -149,46 +149,49 @@ export const ListDetail = ({
           changeStatus={changeStatus}
           addTodo={addTodo}
           updateTodo={updateTodo}
+          readOnly={currentList?.readOnly}
         />
       </section>
-      <section className="share-box">
-        <button
-          onClick={() => {
-            if (!showLink) {
-              setShowShareDialog(true);
-            } else {
-              setShowLink(!showLink);
-            }
-          }}
-        >
-          {!showLink ? 'Share' : 'Hide link'}
-        </button>
-
-        <ShareModal
-          showDialog={showShareDialog}
-          setShowDialog={setShowShareDialog}
-          onDismiss={shareUrl}
-        />
-        {'   '}
-        {showLink && (
-          <input
-            className="new-todo link"
-            id="shareLink"
-            readOnly
-            value={currentShareLink}
-          />
-        )}
-        {showLink && (
-          <button className="btn copy-btn" data-clipboard-target="#shareLink">
-            Copy to clipboard
+      {!currentList?.readOnly && (
+        <section className="share-box">
+          <button
+            onClick={() => {
+              if (!showLink) {
+                setShowShareDialog(true);
+              } else {
+                setShowLink(!showLink);
+              }
+            }}
+          >
+            {!showLink ? 'Share' : 'Hide link'}
           </button>
-        )}
-      </section>
+
+          <ShareModal
+            showDialog={showShareDialog}
+            setShowDialog={setShowShareDialog}
+            onDismiss={shareUrl}
+          />
+          {'   '}
+          {showLink && (
+            <input
+              className="new-todo link"
+              id="shareLink"
+              readOnly
+              value={currentShareLink}
+            />
+          )}
+          {showLink && (
+            <button className="btn copy-btn" data-clipboard-target="#shareLink">
+              Copy to clipboard
+            </button>
+          )}
+        </section>
+      )}
       <ListDetailFooter
         activeTodoCount={activeTodoListCount}
         nowShowing={nowShowing}
         setNowShowing={setNowShowing}
-        readOnly={readOnly}
+        readOnly={currentList?.readOnly}
       />
     </div>
   );

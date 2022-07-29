@@ -12,6 +12,7 @@ const ReadOnlyTodoItem = ({ todo }) => {
           type="checkbox"
           checked={status === 'completed'}
           disabled
+          style={{ cursor: 'not-allowed' }}
         />
         <label>
           {text} <small>[Updated At: {lastUpdated}]</small>
