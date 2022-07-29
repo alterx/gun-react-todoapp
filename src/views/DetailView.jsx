@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useGunCollectionState } from '@altrx/gundb-react-hooks';
 import { useAuth } from '@altrx/gundb-react-auth';
 import {
   openSharedResource,
   createSharedResource,
 } from '../utils/shared-resource.js';
-import { ListDetail } from '../components/ListDetail.js';
+import { ListDetail } from '../components/ListDetail';
 
 export const DetailView = () => {
   const { appKeys, user, sea, newGunInstance } = useAuth();
-  let { listID: lId } = useParams();
+  let [searchParams] = useSearchParams();
+  const lId = searchParams.get('listID');
   const listID = lId ? decodeURIComponent(lId) : null;
-  let history = useHistory();
+  let navigate = useNavigate();
   // Profile information
   const appName = 'todomvc';
   const {
@@ -132,7 +133,7 @@ export const DetailView = () => {
     } else {
       addToSet({ ...currentList, name });
       const path = `/detail/${encodeURIComponent(currentList.id)}`;
-      history.push(path);
+      navigate(path);
     }
   };
 

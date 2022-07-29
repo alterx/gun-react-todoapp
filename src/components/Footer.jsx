@@ -11,7 +11,7 @@ export const Footer = ({
         <strong>{activeListCount}</strong> active list(s)
       </span>
       <ul className="filters">
-        <li onClick={setNowShowing.bind(this, 'active')}>
+        <li onClick={() => setNowShowing('active')}>
           <a
             href="#/active"
             className={nowShowing === 'active' ? 'selected' : ''}
@@ -19,7 +19,7 @@ export const Footer = ({
             Active
           </a>
         </li>{' '}
-        <li onClick={setNowShowing.bind(this, 'archived')}>
+        <li onClick={() => setNowShowing('archived')}>
           <a
             href="#/archived"
             className={nowShowing === 'archived' ? 'selected' : ''}
@@ -27,7 +27,7 @@ export const Footer = ({
             Archived
           </a>
         </li>{' '}
-        <li onClick={setNowShowing.bind(this, 'readonly')}>
+        <li onClick={() => setNowShowing('readonly')}>
           <a
             href="#/readOnly"
             className={nowShowing === 'readonly' ? 'selected' : ''}

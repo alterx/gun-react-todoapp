@@ -35,12 +35,12 @@ const TodoItem = ({ todo, removeTodo, changeStatus, updateTodo }) => {
           className="toggle"
           type="checkbox"
           checked={status === 'completed'}
-          onChange={changeStatus.bind(this, todo)}
+          onChange={() => changeStatus(todo)}
         />
         <label onClick={() => setIsEditing(true)}>
           {text} <small>[Updated At: {lastUpdated}]</small>
         </label>
-        <button className="destroy" onClick={removeTodo.bind(this, todo)} />
+        <button className="destroy" onClick={() => removeTodo(todo)} />
       </div>
       <input
         className="edit"

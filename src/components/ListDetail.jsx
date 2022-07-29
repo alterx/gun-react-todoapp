@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ClipboardJS from 'clipboard';
 import { useGunState, useGunCollectionState } from '@altrx/gundb-react-hooks';
-import { TodoList } from './TodoList.js';
-import { ListDetailFooter } from './ListDetailFooter.js';
-import { ListHeader } from './ListHeader.js';
-import { ShareModal } from './ShareModal.js';
+import { TodoList } from './TodoList';
+import { ListDetailFooter } from './ListDetailFooter';
+import { ListHeader } from './ListHeader';
+import { ShareModal } from './ShareModal';
 
 export const ListDetail = ({
   node,
@@ -92,6 +92,9 @@ export const ListDetail = ({
   };
 
   const shareUrl = async (passphrase, readOnly = true) => {
+    if (!passphrase) {
+      return;
+    }
     if (!showLink) {
       let { id, keys, name, encryptionKey, pub } = currentList;
       let unencryptedSharedKeys;
@@ -104,7 +107,7 @@ export const ListDetail = ({
 
       const sharedKeys = await sea.encrypt(unencryptedSharedKeys, passphrase);
       const shareString = JSON.stringify({ sharedList: sharedKeys });
-      const shareUrl = `${baseURL}/detail/${id}#share=${encodeURI(
+      const shareUrl = `${baseURL}/detail?listID=${id}#share=${encodeURI(
         shareString
       )}`;
 

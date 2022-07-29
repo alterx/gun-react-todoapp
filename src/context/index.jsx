@@ -12,7 +12,7 @@ const asyncFn =
   (fn) =>
   (...args) => {
     return new Promise((resolve) => {
-      resolve(fn.call(this, ...args));
+      resolve(fn.call(fn, ...args));
     });
   };
 

@@ -11,12 +11,12 @@ export const ListDetailFooter = ({
         <strong>{activeTodoCount}</strong> item(s) left
       </span>
       <ul className="filters">
-        <li onClick={setNowShowing.bind(this, 'all')}>
+        <li onClick={() => setNowShowing('all')}>
           <a href="#/" className={nowShowing === 'all' ? 'selected' : ''}>
             All
           </a>
         </li>{' '}
-        <li onClick={setNowShowing.bind(this, 'active')}>
+        <li onClick={() => setNowShowing('active')}>
           <a
             href="#/active"
             className={nowShowing === 'active' ? 'selected' : ''}
@@ -24,7 +24,7 @@ export const ListDetailFooter = ({
             Active
           </a>
         </li>{' '}
-        <li onClick={setNowShowing.bind(this, 'completed')}>
+        <li onClick={() => setNowShowing('completed')}>
           <a
             href="#/completed"
             className={nowShowing === 'completed' ? 'selected' : ''}

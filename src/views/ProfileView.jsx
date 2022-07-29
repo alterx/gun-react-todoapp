@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ClipboardJS from 'clipboard';
 import { useAuth } from '@altrx/gundb-react-auth';
 import { useGunState } from '@altrx/gundb-react-hooks';
@@ -7,7 +7,7 @@ import { useGunState } from '@altrx/gundb-react-hooks';
 export const ProfileView = () => {
   const { appKeys, sea, user, logout } = useAuth();
   const [clipboard, setClipboard] = useState(null);
-  let history = useHistory();
+  let navigate = useNavigate();
   const appName = 'todomvc';
   const { fields: profile, put } = useGunState(
     user.get(appName).get('profile'),
@@ -57,7 +57,7 @@ export const ProfileView = () => {
       <button
         onClick={() => {
           logout(() => {
-            history.push('/');
+            navigate('/');
             window.location.reload();
           });
         }}

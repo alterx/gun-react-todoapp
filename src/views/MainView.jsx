@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useGunCollectionState } from '@altrx/gundb-react-hooks';
 import { useAuth } from '@altrx/gundb-react-auth';
-import { Footer } from '../components/Footer.js';
+import { Footer } from '../components/Footer';
 
 export const MainView = () => {
   const { appKeys, user, sea } = useAuth();
   // Profile information
   const appName = 'todomvc';
-  let history = useHistory();
+  let navigate = useNavigate();
   const { collection: todolists, updateInSet } = useGunCollectionState(
     user.get(appName).get('todolists'),
     { appKeys, sea }
@@ -33,15 +33,16 @@ export const MainView = () => {
       <button
         className="new-list"
         onClick={() => {
-          history.push('/detail');
+          navigate('/detail');
         }}
       >
         Create List
       </button>
+
       <button
         style={{ margin: '0 auto', display: 'block', padding: '10px 0 0 0' }}
         onClick={() => {
-          history.push('/profile');
+          navigate('/profile');
         }}
       >
         View profile
@@ -53,8 +54,8 @@ export const MainView = () => {
             key={list.nodeID}
             className="view"
             onClick={() => {
-              const path = `/detail/${encodeURIComponent(list.id)}`;
-              history.push(path);
+              const path = `/detail?listID=${encodeURIComponent(list.id)}`;
+              navigate(path);
             }}
           >
             <label>{list.name}</label>

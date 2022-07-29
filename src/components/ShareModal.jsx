@@ -22,7 +22,7 @@ export const ShareModal = ({ showDialog, setShowDialog, onDismiss }) => {
     <div>
       {showDialog && (
         <AlertDialog
-          onDismiss={onClose.bind(this, 'success')}
+          onDismiss={() => onClose('success')}
           leastDestructiveRef={cancelRef}
         >
           <AlertDialogLabel>
@@ -57,10 +57,8 @@ export const ShareModal = ({ showDialog, setShowDialog, onDismiss }) => {
             <br />
           </AlertDialogDescription>
           <div className="alert-buttons">
-            <button onClick={onClose.bind(this, 'success')}>
-              Generate URL
-            </button>{' '}
-            <button ref={cancelRef} onClick={onClose.bind(this, 'canceled')}>
+            <button onClick={() => onClose('success')}>Generate URL</button>{' '}
+            <button ref={cancelRef} onClick={() => onClose('canceled')}>
               Cancel
             </button>
           </div>
