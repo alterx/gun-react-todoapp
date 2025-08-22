@@ -1,5 +1,18 @@
 import { useState } from 'react';
-import { getHash } from './index';
+
+export const getHash = async (
+  data,
+  sea,
+  max = 12,
+  name = 'SHA-1',
+  salt = null
+) => {
+  const message = await sea.work(data, salt, null, {
+    name,
+    encode: 'hex',
+  });
+  return message.slice(0, max);
+};
 
 export const createSharedResource = async (newGunInstance, sea) => {
   const keys = await sea.pair();
@@ -8,7 +21,7 @@ export const createSharedResource = async (newGunInstance, sea) => {
   const nodeID = `${keyId}`;
   return new Promise(async (resolve) => {
     const newGun = newGunInstance({
-      peers: ['https://gun-us.herokuapp.com/gun'],
+      peers: ['http://localhost:8765/gun'],
       localStorage: false,
       radisk: true,
       file: nodeID,
@@ -38,7 +51,7 @@ export const createSharedResource = async (newGunInstance, sea) => {
 export const openSharedResource = async (nodeID, newGunInstance, keys, pub) => {
   return new Promise((resolve) => {
     const newGun = newGunInstance({
-      peers: ['https://gun-us.herokuapp.com/gun'],
+      peers: ['http://localhost:8765/gun'],
       localStorage: false,
       radisk: true,
       file: nodeID,

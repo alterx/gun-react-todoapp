@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ClipboardJS from 'clipboard';
-import { useAuth } from '@altrx/gundb-react-auth';
+import { useAuth } from '@altrx/gundb-react-hooks';
 import { useGunState } from '@altrx/gundb-react-hooks';
 
 export const ProfileView = () => {

@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useGunCollectionState } from '@altrx/gundb-react-hooks';
-import { useAuth } from '@altrx/gundb-react-auth';
+import { useAuth } from '@altrx/gundb-react-hooks';
 import {
   openSharedResource,
   createSharedResource,
@@ -29,11 +29,15 @@ export const DetailView = () => {
   const [{ node }, setSharedResource] = useState({});
   const [listReady, setListReady] = useState(false);
   const [currentList, setCurrentList] = useState(null);
-  const sharedTodos = Array.from(todolists.values()).reduce((arr, item) => {
-    const { id } = item;
-    arr[id] = item;
-    return arr;
-  }, {});
+
+  // Memoize sharedTodos to prevent infinite re-renders
+  const sharedTodos = useMemo(() => {
+    return Array.from(todolists.values()).reduce((arr, item) => {
+      const { id } = item;
+      arr[id] = item;
+      return arr;
+    }, {});
+  }, [todolists]);
 
   const loadList = useCallback(
     async (list) => {

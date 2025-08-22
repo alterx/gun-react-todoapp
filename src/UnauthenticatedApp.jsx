@@ -1,5 +1,4 @@
-import React from 'react';
-import { useAuth } from '@altrx/gundb-react-auth';
+import { useAuth } from '@altrx/gundb-react-hooks';
 
 export default function LoginView() {
   const { login } = useAuth();

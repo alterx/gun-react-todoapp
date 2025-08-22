@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ClipboardJS from 'clipboard';
 import { useGunState, useGunCollectionState } from '@altrx/gundb-react-hooks';
@@ -24,7 +24,7 @@ export const ListDetail = ({
   const [showLink, setShowLink] = useState(false);
   const [clipboard, setClipboard] = useState(null);
   const { encryptionKey } = currentList;
-  const [showShareDialog, setShowShareDialog] = React.useState(false);
+  const [showShareDialog, setShowShareDialog] = useState(false);
   const { fields: profile, put } = useGunState(
     node.get(sharedResourceRootNodeName).get('profile'),
     { appKeys: encryptionKey, sea }

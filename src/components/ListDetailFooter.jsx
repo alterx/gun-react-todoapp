@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const ListDetailFooter = ({
   activeTodoCount = 0,
   nowShowing = 'all',

@@ -1,4 +1,3 @@
-import React from 'react';
 import { MainView } from './views/MainView';
 import { DetailView } from './views/DetailView';
 import { ProfileView } from './views/ProfileView';

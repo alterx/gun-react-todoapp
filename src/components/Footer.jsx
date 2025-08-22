@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const Footer = ({
   activeListCount = 0,
   nowShowing = 'active',

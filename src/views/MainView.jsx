@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGunCollectionState } from '@altrx/gundb-react-hooks';
-import { useAuth } from '@altrx/gundb-react-auth';
+import { useAuth } from '@altrx/gundb-react-hooks';
 import { Footer } from '../components/Footer';
 
 export const MainView = () => {
   const { appKeys, user, sea } = useAuth();
-  // Profile information
   const appName = 'todomvc';
   let navigate = useNavigate();
-  const { collection: todolists, updateInSet } = useGunCollectionState(
+  let { items, updateInSet } = useGunCollectionState(
     user.get(appName).get('todolists'),
-    { appKeys, sea }
+    {
+      appKeys,
+      sea,
+    }
   );
 
   const [nowShowing, setNowShowing] = useState('active');
@@ -21,12 +23,11 @@ export const MainView = () => {
     await updateInSet(nodeID, { ...list, status });
   };
 
-  let todoList = Array.from(todolists.values());
-  let activeListCount = todoList.filter(
+  let activeListCount = items.filter(
     ({ status }) => status === 'active'
   ).length;
 
-  todoList = todoList.filter(({ status }) => status === nowShowing);
+  items = items.filter(({ status }) => status === nowShowing);
 
   return (
     <div className="todoapp">
@@ -49,7 +50,7 @@ export const MainView = () => {
       </button>
       <h2>My Lists</h2>
       <ul className="todo-list lists">
-        {todoList.map((list) => (
+        {items.map((list) => (
           <li
             key={list.nodeID}
             className="view"

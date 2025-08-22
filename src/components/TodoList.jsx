@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ReadOnlyTodoItem = ({ todo }) => {
   const { text, lastUpdated, nodeID, status } = todo;

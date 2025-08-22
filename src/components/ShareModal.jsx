@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import {
   AlertDialog,
   AlertDialogLabel,
@@ -7,9 +7,9 @@ import {
 import '@reach/dialog/styles.css';
 
 export const ShareModal = ({ showDialog, setShowDialog, onDismiss }) => {
-  const [passphrase, setPassphrase] = React.useState('');
-  const [readOnly, setReadOnly] = React.useState('readonly');
-  const cancelRef = React.useRef();
+  const [passphrase, setPassphrase] = useState('');
+  const [readOnly, setReadOnly] = useState('readonly');
+  const cancelRef = useRef();
 
   const onClose = (result) => {
     if (result === 'success') {
