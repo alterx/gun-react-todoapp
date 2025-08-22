@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export const getHash = async (
   data,
   sea,
@@ -73,24 +71,4 @@ export const openSharedResource = async (nodeID, newGunInstance, keys, pub) => {
       resolve(node);
     }
   });
-};
-
-export const useSharedResource = (appName, gun, sea) => {
-  const [sharedResource, setSharedResource] = useState({
-    node: null,
-    shareKeys: null,
-    keys: null,
-  });
-  const [isRetrieving, setIsRetrieving] = useState(false);
-
-  async function getSharedResource() {
-    const resource = await createSharedResource(appName, gun, sea);
-    setSharedResource(resource);
-  }
-  if (!sharedResource.node && !isRetrieving) {
-    setIsRetrieving(true);
-    getSharedResource();
-  }
-
-  return [sharedResource, setSharedResource];
 };
